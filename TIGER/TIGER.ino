@@ -22,6 +22,9 @@ int count;
 float ChangeX;
 float ChangeY;
 int c = 0;
+double StartTime, CurrentTime, ElapsedTime;
+double SumX, SumY;
+double AverageErrorX, AverageErrorY;
 
 Servo ServoXaxis; 
 Servo ServoYaxis;
@@ -81,8 +84,12 @@ void setup() {
    // Servo Check Code----------------------------------------
    delay(1000);
    Serial.println("Initiating Servo Control");
+
+   StartTime = millis();
 }
 void loop() {
+  CurrentTime = millis();
+  ElapsedTime = CurrentTime - StartTime;
   // Read Data from MPU6050 ----------------------------------------
   Wire.beginTransmission(MPU);
   Wire.write(0x3B); // Start with register 0x3B (ACCEL_XOUT_H)
@@ -109,13 +116,20 @@ void loop() {
   }
     Serial.print(avgvalue2/100);
     // end MPU6050 reading ---------------------------------------------------
+
+   SumX = SumX + (Value1[c]);
+   SumY = SumY + (Value2[c]);
+
+   AverageErrorX = SumX / ElapsedTime;
+   AverageErrorY = SumY / ElapsedTime;
+
    sensorValueX = analogRead(sensorPinX);
    sensorValueY = analogRead(sensorPinY);
    XDifference = (180 - (avgvalue1/100));
 
    YDifference = 180 - (avgvalue2/100);
-   ChangeX = (kP * (XDifference));// + (kI * ()) + (kD * ());
-   ChangeY = (kP * (YDifference));// + (kI * ()) + (kD * ());
+   ChangeX = (kP * (XDifference)) + (kI * (AverageErrorX));// + (kD * ());
+   ChangeY = (kP * (YDifference)) + (kI * (AverageErrorY));// + (kD * ());
    //ChangeX = (sensorValueX-512)*44/512;
    //ChangeY = (sensorValueY-512)*44/512;
    //Printing Servo Values----------------------------------------------------
