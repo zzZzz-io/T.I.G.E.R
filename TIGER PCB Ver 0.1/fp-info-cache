@@ -1,4 +1,4 @@
-24657907873957670
+24650941294203989
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -65820,20 +65820,6 @@ Yellow 5381 Series LED
 0
 2
 2
-MSD-10-C
-CUI_MSD-10-C
-
-
-0
-12
-12
-MSD_4_A
-CUI_MSD-4-A
-
-
-0
-13
-13
 Module
 A20_OLINUXINO_LIME2
 A20 Olinuxino LIME2, 1.2GHz, 512-1024MB RAM, Micro-SD, NAND or eMMC, 1000Mbit Ethernet
@@ -98587,13 +98573,6 @@ igbt diode module
 0
 25
 25
-USB4105_GF_A
-GCT_USB4105-GF-A
-
-
-0
-16
-16
 Valve
 Valve_ECC-83-1
 Valve ECC-83-1 round pins
@@ -99375,13 +99354,6 @@ Varistor
 Varistor_Panasonic_VF
 Panasonic VF series varistor, 6x8mm body, 3.2mm height, https://mediap.industry.panasonic.eu/assets/imported/industrial.panasonic.com/cdbs/www-data/pdf/AWA0000/AWA0000C4.pdf
 Varistor VF
-0
-2
-2
-XT30UPB-M
-XT30UPB-M
-
-
 0
 2
 2

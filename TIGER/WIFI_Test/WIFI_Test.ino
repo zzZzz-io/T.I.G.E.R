@@ -1,34 +1,32 @@
 #include <WiFi.h>
+#include <Wire.h>
 
-const char* ssid = "T.I.G.E.R. Flight Computer";
+const char* ssid = "TIGER_Flight_Computer";
 const char* password = "stevenjcenci";
 
-WiFiServer server(23);  // Telnet uses port 23, but you can use any port
-
+WiFiServer server(23);
 WiFiClient client;
 
 void setup() {
-  Serial.begin(115200); // Local serial debug
   WiFi.softAP(ssid, password);
-  Serial.println("AP started. IP: " + WiFi.softAPIP().toString());
+  Wire.begin(8, 9); // Use working pins
+
   server.begin();
 }
 
 void loop() {
   if (server.hasClient()) {
-    if (!client || !client.connected()) {
-      client = server.available();
-      Serial.println("Client connected");
-    } else {
-      server.available().stop(); // Only allow one client
-    }
-  }
+    client = server.available();
+    client.println("Scanning I2C...");
 
-  if (client && client.connected()) {
-    if (client.available()) {
-      String incoming = client.readStringUntil('\n');
-      Serial.println("From client: " + incoming);
-      client.println("Echo: " + incoming); // Optional echo back
+    for (byte address = 1; address < 127; address++) {
+      Wire.beginTransmission(address);
+      byte error = Wire.endTransmission();
+      if (error == 0) {
+        client.printf("Found device at 0x%02X\n", address);
+      }
     }
+    client.println("Done.");
+    delay(5000);
   }
 }
